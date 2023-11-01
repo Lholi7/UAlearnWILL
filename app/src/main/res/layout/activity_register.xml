@@ -31,7 +31,8 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/rlHeader" />
 
-    <TextView android:textSize="20sp"
+    <TextView
+        android:textSize="20sp"
         android:layout_marginLeft="40dp"
         android:textColor="@android:color/darker_gray"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -73,12 +74,14 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"/>
 
-        <EditText android:hint="Email"
+        <EditText android:id="@+id/emailEditText"
+            android:hint="Email"
             android:drawableRight="@drawable/baseline_email_24"
             android:layout_width="match_parent"
             android:layout_height="60dp"/>
 
-        <EditText android:hint="Password"
+        <EditText android:id="@+id/passwordEditText"
+            android:hint="Password"
             android:drawableRight="@drawable/baseline_lock_24"
             android:inputType="textPassword"
             android:layout_width="match_parent"
@@ -93,7 +96,8 @@
 
     </LinearLayout>
 
-    <Button android:text="SignUp"
+    <Button android:id="@+id/signUpButton"
+        android:text="SignUp"
         android:layout_marginBottom="5dp"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="@id/llLoginPanel"

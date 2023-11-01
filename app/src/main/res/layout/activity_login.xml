@@ -62,15 +62,17 @@
         android:paddingLeft="50dp"
         android:paddingRight="50dp"
         android:orientation="vertical">
-        
 
 
-        <EditText android:hint="Email"
+
+        <EditText android:id="@+id/emailEditText"
+            android:hint="Email"
             android:drawableRight="@drawable/baseline_email_24"
             android:layout_width="match_parent"
             android:layout_height="60dp"/>
 
-        <EditText android:hint="Password"
+        <EditText android:id="@+id/passwordEditText"
+            android:hint="Password"
             android:drawableRight="@drawable/baseline_lock_24"
             android:inputType="textPassword"
             android:layout_width="match_parent"
@@ -85,7 +87,8 @@
 
     </LinearLayout>
 
-    <Button android:text="LOGIN"
+    <Button android:id="@+id/loginButton"
+        android:text="LOGIN"
         android:layout_marginBottom="5dp"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="@id/llLoginPanel"

@@ -1,14 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".NotesFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <ImageView
+    android:id="@+id/studyImageView"
+    android:layout_width="match_parent"
+    android:layout_height="220dp"
+    android:src="@drawable/study"
+    android:scaleType="centerCrop"
+    android:adjustViewBounds="true" />
 
-</FrameLayout>
+    <!-- Color buttons for changing text color -->
+    <LinearLayout
+        android:id="@+id/buttonsll"
+        android:layout_width="422dp"
+        android:layout_height="84dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/colorButton1"
+            android:layout_width="114dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="4dp"
+            android:background="#3366CC"
+            android:text="color1" />
+
+
+        <Button
+            android:id="@+id/colorButton2"
+            android:layout_width="114dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="4dp"
+            android:background="#FF6633"
+            android:text="color1" />
+
+        <Button
+            android:id="@+id/colorButton3"
+            android:layout_width="124dp"
+            android:layout_height="58dp"
+            android:layout_marginTop="16dp"
+            android:background="#66CC33"
+            android:text="color1" />
+
+        <!-- Add 10 more color buttons with different background colors -->
+
+    </LinearLayout>
+
+    <!-- Spinner to choose subjects -->
+    <TextView
+        android:id="@+id/subjectsTextView"
+        android:layout_width="354dp"
+        android:layout_height="47dp"
+        android:layout_below="@id/buttonsll"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="30dp"
+        android:text="Select a Subject:"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+    <!-- EditText for taking notes -->
+    <EditText
+        android:id="@+id/noteEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter your notes..."
+        android:gravity="top"
+        android:layout_margin="16dp"
+        android:background="@android:color/transparent"
+        android:inputType="textMultiLine"
+        android:lines="5" />
+
+    <!-- Button to save notes -->
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="256dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:text="Save Notes" />
+
+
+</LinearLayout>

@@ -11,6 +11,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 private val Frag1= HomeFragment()
 private val Frag2=NotesFragment()
+private val FRAG3=ViewSubjects()
 
 class MenuBar : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,8 +26,7 @@ class MenuBar : AppCompatActivity() {
             {
                 R.id.homeFragment->replacefrag(Frag1)
                 R.id.NotesFragment->replacefrag(Frag2)
-
-            }
+                R.id.ViewSubjects->replacefrag(FRAG3)            }
             true
         }
     }

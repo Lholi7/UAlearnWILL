@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Add the TextView with the correct ID
+     <TextView
+        android:id="@+id/subjectNameTextView"
+        android:layout_width="395dp"
+        android:layout_height="52dp"
+        android:layout_gravity="center"
+        android:background="@color/maroon"
+        android:text="SUBJECT"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+    -->
+    <TextView
+        android:id="@+id/subjectNameTextView"
+        android:layout_width="395dp"
+        android:layout_height="52dp"
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        android:background="@color/maroon"
+        android:text="SUBJECT"
+        android:textStyle="bold"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="26sp" />
+
+</LinearLayout>
+

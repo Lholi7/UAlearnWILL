@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context=".HomeFragment">
+
+
+    <RelativeLayout
+        android:id="@+id/toolBarRl"
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:background="@color/white">
+        <!--Back Button-->
+
+
+        <ImageView
+            android:id="@+id/iconTv"
+            android:layout_width="226dp"
+            android:layout_height="104dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/ualogo" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iconTv"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:fontFamily="sans-serif-condensed"
+            android:text="Please add your subjects below"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="28sp"/>
+    </RelativeLayout>
+    <!-- CardView to contain EditText and Button -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="319dp"
+        app:cardBackgroundColor="@color/maroon"
+        android:layout_height="161dp"
+
+        android:layout_centerInParent="true"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp">
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/categoryTil"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
+            <!-- EditText centered horizontally -->
+            <EditText
+                android:id="@+id/SubjectName"
+                android:layout_width="293dp"
+                android:layout_height="50dp"
+                android:drawableRight="@drawable/books"
+                android:background="@drawable/shape_edittext01"
+
+                android:hint="Enter Subject name:" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <!-- Button placed below EditText -->
+            <Button
+                android:id="@+id/button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Submit" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

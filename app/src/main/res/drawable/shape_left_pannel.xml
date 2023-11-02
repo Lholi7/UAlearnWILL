@@ -6,9 +6,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <corners android:topRightRadius="40dp" android:bottomRightRadius="40dp" />
     <gradient android:angle="225"
-        android:startColor="@color/color_blue"
-        android:centerColor="@color/color_violet"
-        android:endColor="@color/color_pink"/>
+        android:startColor="@color/maroon"
+        android:centerColor="@color/white"
+        android:endColor="@color/maroon"/>
 
 
 </shape>

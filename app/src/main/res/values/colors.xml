@@ -3,11 +3,12 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="maroon">#800000</color>
+    <color name="gray">#E8E9EB</color>
 
     <color name="colorPrimary">#3d93d9</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#081860</color>
-
+    <color name="purple_500">#FF6200EE</color>
 
     <color name="color_pink">#cf4bf8</color>
     <color name="color_violet">#8813e4</color>

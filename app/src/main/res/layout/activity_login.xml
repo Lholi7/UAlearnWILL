@@ -30,7 +30,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/rlHeader" />
 
-    <TextView android:textSize="20sp"
+    <TextView
+        android:textSize="20sp"
         android:layout_marginLeft="40dp"
         android:textColor="@android:color/white"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -38,7 +39,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Login"
-        android:id="@+id/LoginTextView"/>
+        android:id="@+id/LoginTextView"
+        android:textStyle="bold" />
+
 
     <TextView
         android:textSize="20sp"
@@ -49,6 +52,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="SignUp"
+        android:textStyle="bold"
         android:id="@+id/signUpTextView"/>
 
     <LinearLayout
@@ -109,7 +113,7 @@
             android:layout_height="wrap_content"/>
         <TextView android:text="Sign Up"
             android:textSize="20sp"
-            android:textColor="@color/color_pink"
+            android:textColor="@color/maroon"
             android:layout_marginLeft="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>

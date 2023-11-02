@@ -26,7 +26,8 @@
     <RelativeLayout
         android:layout_width="220dp"
         android:layout_height="480dp"
-        android:background="@drawable/shape_left_pannel"
+        android:background="@drawable/shape_right_pannel"
+
 
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/rlHeader" />
@@ -40,6 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Login"
+        android:textStyle="bold"
         android:id="@+id/LoginTextView"/>
 
     <TextView
@@ -51,6 +53,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="SignUp"
+        android:textStyle="bold"
         android:id="@+id/signUpTextView"/>
 
 

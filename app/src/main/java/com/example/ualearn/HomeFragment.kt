@@ -1,23 +1,25 @@
 package com.example.ualearn
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
-import com.google.firebase.auth.FirebaseAuth
+import com.example.ualearn.SubjectModel
+import com.google.android.material.textfield.TextInputLayout
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
 class HomeFragment : Fragment() {
-    private lateinit var auth: FirebaseAuth
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        auth = FirebaseAuth.getInstance()
-    }
+    lateinit var subjectNameEditText: EditText
+    lateinit var submitButton: Button
+    lateinit var subjectsReference: DatabaseReference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,45 +27,32 @@ class HomeFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
-        // Find the "Submit" button and the EditText
-        val submitButton = view.findViewById<Button>(R.id.button)
-        val subjectEditText = view.findViewById<EditText>(R.id.SubjectName)
+        subjectNameEditText = view.findViewById(R.id.SubjectName)
+        submitButton = view.findViewById(R.id.button)
 
-        // Set a click listener for the "Submit" button
+        subjectsReference = FirebaseDatabase.getInstance().getReference("subjects")
+
         submitButton.setOnClickListener {
-            // Get the text from the EditText
-            val subject = subjectEditText.text.toString().trim()
-
-            // Check if the subject name is not empty
-            if (subject.isNotEmpty()) {
-                // Save the subject name to Firebase under "SUBJECTS" category
-                val uid = auth.currentUser?.uid
-                val databaseReference = FirebaseDatabase.getInstance().getReference("SUBJECTS/$uid")
-                val timestamp = System.currentTimeMillis()
-
-                databaseReference.child("$timestamp").setValue(subject)
-                    .addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            showToast("Subject saved to Firebase")
-                        } else {
-                            showToast("Failed to save subject: ${task.exception?.message}")
-                        }
-                    }
-                    .addOnFailureListener { e ->
-                        showToast("Failed to save subject: ${e.message}")
-                    }
-
-                // Clear the EditText after saving
-                subjectEditText.text.clear()
-            } else {
-                showToast("Please enter a subject name")
-            }
+            addSubjectToFirebase()
         }
 
         return view
     }
 
-    private fun showToast(message: String) {
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    // Inside your addSubjectToFirebase() method
+    private fun addSubjectToFirebase() {
+        val subjectName = subjectNameEditText.text.toString().trim()
+
+        if (TextUtils.isEmpty(subjectName)) {
+            Toast.makeText(requireActivity(), "Please enter a subject name", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val subjectKey = subjectsReference.push().key!!
+        val subject = SubjectModel(subjectKey, subjectName)
+        subjectsReference.child(subjectKey).setValue(subject)
+
+        subjectNameEditText.text.clear()
     }
+
 }

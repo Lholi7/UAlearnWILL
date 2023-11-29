@@ -5,13 +5,20 @@
         android:title="Home"
         android:icon="@drawable/home_nav" />
     <item
-        android:id="@+id/NotesFragment"
+        android:id="@+id/Add_Notes"
         android:title="Add Notes"
-        android:icon="@drawable/ic_notes_24" />
+        android:icon="@drawable/baseline_edit_note_24" />
     <item
-        android:id="@+id/ViewSubjects"
-        android:title="Subjects"
-        android:icon="@drawable/ic_notes_24" />
-
+        android:id="@+id/Add_Topics"
+        android:title="Add Topics"
+        android:icon="@drawable/baseline_filter_list_24" />
+    <item
+        android:id="@+id/Add_Subject"
+        android:title="Add Subject"
+        android:icon="@drawable/baseline_remove_red_eye_24" />
+    <item
+        android:id="@+id/StudentSubjects"
+        android:title="View Subjects"
+        android:icon="@drawable/add_book" />
     <!-- Add more items for other pages -->
 </menu>

@@ -15,8 +15,7 @@ class uaSPLASH : AppCompatActivity() {
 
 
         Handler().postDelayed({
-            val intent = Intent(this, Register::class.java) // Replace with your main activity
-            startActivity(intent)
+            startActivity(Intent(this, Register::class.java))
             finish()
         }, splashTimeout)
     }

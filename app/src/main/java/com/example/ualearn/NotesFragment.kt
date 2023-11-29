@@ -1,27 +1,22 @@
 package com.example.ualearn
 
-import android.app.AlertDialog
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
+import android.widget.EditText
 
 class NotesFragment : Fragment() {
 
-    private lateinit var auth: FirebaseAuth
-    private lateinit var subjectTextView: TextView
-    private lateinit var noteEditText: EditText
-    private lateinit var saveButton: Button
-    private lateinit var subjects: MutableList<String>
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        auth = FirebaseAuth.getInstance()
-    }
+    private val databaseReference = FirebaseDatabase.getInstance().getReference("subjects")
+    private lateinit var selectedSubject: SubjectModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,86 +24,89 @@ class NotesFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_notes, container, false)
 
-        subjectTextView = view.findViewById(R.id.subjectsTextView)
-        noteEditText = view.findViewById(R.id.noteEditText)
-        saveButton = view.findViewById(R.id.saveButton)
+        // Fetch subjects from Firebase
+        fetchSubjects()
 
-        // Initialize subjects list
-        subjects = mutableListOf()
-
-        // Fetch the user's subjects from Firebase
-        fetchUserSubjects()
-
-        // Set a listener to display subjects in a dialog
-        subjectTextView.setOnClickListener {
-            displaySubjectsDialog()
-        }
-
-        // Set a listener to save the note to the selected subject
+        // Save button click listener
+        val saveButton = view.findViewById<Button>(R.id.saveButton)
         saveButton.setOnClickListener {
-            val selectedSubject = subjectTextView.text.toString()
-            val note = noteEditText.text.toString().trim()
-            saveNoteToFirebase(selectedSubject, note)
+            saveNote()
         }
 
         return view
     }
 
-    private fun fetchUserSubjects() {
-        val uid = auth.currentUser?.uid
-        val subjectsRef = FirebaseDatabase.getInstance().getReference("SUBJECTS/$uid")
+    private fun fetchSubjects() {
+        databaseReference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val subjects = mutableListOf<SubjectModel>()
 
-        subjectsRef.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                subjects.clear()
-                for (subjectSnapshot in dataSnapshot.children) {
-                    val subjectName = subjectSnapshot.key
-                    subjectName?.let { subjects.add(it) }
+                for (childSnapshot in snapshot.children) {
+                    val subject = childSnapshot.getValue(SubjectModel::class.java)
+                    subject?.let {
+                        subjects.add(it)
+                    }
                 }
+
+                // Update UI with subjects
+                updateSubjectUI(subjects)
             }
 
-            override fun onCancelled(databaseError: DatabaseError) {
-                // Handle errors
-                Toast.makeText(requireContext(), "Failed to retrieve subjects: ${databaseError.message}", Toast.LENGTH_SHORT).show()
+            override fun onCancelled(error: DatabaseError) {
+                // Handle the error
             }
         })
     }
 
-    private fun displaySubjectsDialog() {
-        val subjectNames = subjects.toTypedArray()
-        val dialog = AlertDialog.Builder(requireContext())
-        dialog.setTitle("Select a Subject")
-        dialog.setItems(subjectNames) { _, which ->
-            val selectedSubject = subjectNames[which]
-            subjectTextView.text = selectedSubject
+    private fun updateSubjectUI(subjects: List<SubjectModel>) {
+        // Display subjects in a spinner or any other UI element
+        val subjectNames = subjects.map { it.subjectName }.toTypedArray()
+        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, subjectNames)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+        val subjectsSpinner = view?.findViewById<Spinner>(R.id.subjectsSpinner)
+        subjectsSpinner?.adapter = adapter
+
+        // Handle subject selection
+        subjectsSpinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parentView: AdapterView<*>, selectedItemView: View?, position: Int, id: Long) {
+                selectedSubject = subjects[position]
+            }
+
+            override fun onNothingSelected(parentView: AdapterView<*>) {
+                // Do nothing
+            }
         }
-        dialog.show()
     }
 
-    private fun saveNoteToFirebase(subject: String, note: String) {
-        if (note.isEmpty()) {
-            Toast.makeText(requireContext(), "Please enter your notes", Toast.LENGTH_SHORT).show()
-            return
+    private fun saveNote() {
+        // Retrieve note content from EditText
+        val noteEditText = view?.findViewById<EditText>(R.id.noteEditText)
+        val noteContent = noteEditText?.text.toString()
+
+        if (noteContent.isNotEmpty()) {
+            // Check if a subject is selected
+            if (::selectedSubject.isInitialized) {
+                // Save the note with the selected subject ID
+                val note = NoteModel(selectedSubject.id, noteContent)
+                saveNoteToFirebase(note)
+
+                // Optionally, you can clear the EditText after saving
+                noteEditText?.text?.clear()
+
+                // Show a message or perform other actions if needed
+                Toast.makeText(requireContext(), "Note saved successfully", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(requireContext(), "Please select a subject", Toast.LENGTH_SHORT).show()
+            }
+        } else {
+            Toast.makeText(requireContext(), "Please enter a note", Toast.LENGTH_SHORT).show()
         }
+    }
 
-        val uid = auth.currentUser?.uid
-        val notesRef = FirebaseDatabase.getInstance().getReference("Notes/$uid/$subject").push()
-
-        val noteData = HashMap<String, String>()
-        noteData["text"] = note
-
-        notesRef.setValue(noteData)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    Toast.makeText(requireContext(), "Note saved to Firebase", Toast.LENGTH_SHORT).show()
-                    noteEditText.text.clear()
-                } else {
-                    Toast.makeText(requireContext(), "Failed to save note: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
-                }
-            }
-            .addOnFailureListener { e ->
-                Toast.makeText(requireContext(), "Failed to save note: ${e.message}", Toast.LENGTH_SHORT).show()
-            }
+    private fun saveNoteToFirebase(note: NoteModel) {
+        val databaseReference = FirebaseDatabase.getInstance().getReference("notes")
+        val noteId = databaseReference.push().key
+        databaseReference.child(noteId ?: "").setValue(note)
     }
 }
-

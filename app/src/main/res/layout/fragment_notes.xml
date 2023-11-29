@@ -6,15 +6,31 @@
     android:orientation="vertical"
     tools:context=".NotesFragment">
 
-    <ImageView
-    android:id="@+id/studyImageView"
-    android:layout_width="match_parent"
-    android:layout_height="220dp"
-    android:src="@drawable/study"
-    android:scaleType="centerCrop"
-    android:adjustViewBounds="true" />
+    <!-- Heading "Add Notes" in white, bold text with maroon background -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@color/maroon"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="Add Notes"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <!-- ImageView for study image -->
 
     <!-- Color buttons for changing text color -->
+    <ImageView
+        android:id="@+id/studyImageView"
+        android:layout_width="340dp"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/study"
+        android:layout_gravity="center"/>
+
     <LinearLayout
         android:id="@+id/buttonsll"
         android:layout_width="422dp"
@@ -22,58 +38,40 @@
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/colorButton1"
-            android:layout_width="114dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="4dp"
-            android:background="#3366CC"
-            android:text="color1" />
+        <!-- TextView for "Allocate to Subject" -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Allocate to Subject:"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="5dp"/>
 
-
-        <Button
-            android:id="@+id/colorButton2"
-            android:layout_width="114dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="4dp"
-            android:background="#FF6633"
-            android:text="color1" />
-
-        <Button
-            android:id="@+id/colorButton3"
-            android:layout_width="124dp"
-            android:layout_height="58dp"
-            android:layout_marginTop="16dp"
-            android:background="#66CC33"
-            android:text="color1" />
-
-        <!-- Add 10 more color buttons with different background colors -->
+        <!-- Spinner to choose subjects -->
+        <Spinner
+            android:id="@+id/subjectsSpinner"
+            android:layout_width="300dp"
+            android:layout_height="47dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="30dp"
+            android:prompt="@string/select_subject_prompt"
+            android:background="@android:color/white"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
 
     </LinearLayout>
 
-    <!-- Spinner to choose subjects -->
-    <TextView
-        android:id="@+id/subjectsTextView"
-        android:layout_width="354dp"
-        android:layout_height="47dp"
-        android:layout_below="@id/buttonsll"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="30dp"
-        android:text="Select a Subject:"
-        android:textColor="@color/black"
-        android:textSize="20sp" />
     <!-- EditText for taking notes -->
     <EditText
         android:id="@+id/noteEditText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter your notes..."
-        android:gravity="top"
+        android:layout_height="289dp"
         android:layout_margin="16dp"
         android:background="@android:color/transparent"
+        android:gravity="top"
+        android:hint="Enter your notes..."
         android:inputType="textMultiLine"
         android:lines="5" />
 
@@ -85,6 +83,5 @@
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
         android:text="Save Notes" />
-
 
 </LinearLayout>

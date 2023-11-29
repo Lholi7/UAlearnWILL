@@ -12,21 +12,21 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 private val Frag1= HomeFragment()
 private val Frag2=NotesFragment()
 private val FRAG3=ViewSubjects()
-
+private val FRAG4=ScopesFragment()
 class MenuBar : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu_bar)
-        replacefrag(Frag1)
+
 
 
         val bottomNav = findViewById<BottomNavigationView>(R.id.NavBar)
         bottomNav.setOnItemSelectedListener {
             when(it.itemId)
             {
-                R.id.homeFragment->replacefrag(Frag1)
-                R.id.NotesFragment->replacefrag(Frag2)
-                R.id.ViewSubjects->replacefrag(FRAG3)            }
+                //R.id.homeFragment->replacefrag(Frag1)
+
+            }
             true
         }
     }

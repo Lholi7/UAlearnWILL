@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.gms.google-services")
+
 }
 
 android {
@@ -51,5 +52,6 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation ("androidx.navigation:navigation-fragment:2.4.0")
     implementation ("androidx.navigation:navigation-ui:2.4.0")
+    implementation ("com.firebaseui:firebase-ui-database:8.0.0")
 
 }
